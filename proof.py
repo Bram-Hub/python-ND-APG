@@ -30,8 +30,20 @@ class Proof:
 		file = open(filename)
 		for line in file:
 			line = line.strip()
-			statement = Statement(line, "NULL", "NULL", 0)
-			self.knowledge_base.append(statement)
+			if (line[0:5] == "<raw>"):
+				# Take off tags
+				line = line[5:-6]
+				# Take out comments
+				if ('#' in line):
+					line = line[0:line.find('#')]
+				# Convert symbols
+				line = line.replace('∧', '&')	# And
+				line = line.replace('∨', '|')	# Or
+				line = line.replace('¬', '~')	# Not
+				statement = Statement(line, "NULL", "NULL", 0)
+				self.knowledge_base.append(statement)
+			# statement = Statement(line, "NULL", "NULL", 0)
+			# self.knowledge_base.append(statement)
 		self.conclusion = self.knowledge_base[-1].string
 		self.knowledge_base.pop(-1)
 		line_counter -= 1
@@ -159,10 +171,10 @@ class Proof:
 		return False
 
 	def line_to_tex(self, line):
-		line = line.replace("|","\lor")
-		line = line.replace("&","\land")
+		line = line.replace("|","\lor ")
+		line = line.replace("&","\land ")
 		line = line.replace("~","\lnot ")
-		line = line.replace("!","\lfalse")
+		line = line.replace("!","\lfalse ")
 		return line
 		
 	def to_tex_file(self):

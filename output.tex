@@ -1,35 +1,45 @@
 \documentclass{article}
 \usepackage{lplfitch}
 \begin{document}
-\fitchprf{\pline[1.]{(A \lor B) \land (\lnot B \lor C)}\\
-\pline[2.]{\lnot C}}
+\fitchprf{\pline[1.]{(B\lor \lnot C)\land (C\lor A)}\\
+\pline[2.]{\lnot A\lor B}}
 {
-\subproof{\pline[3.]{\lnot A}}
+\subproof{\pline[3.]{\lnot B}}
 {
-\pline[4.]{A \lor B}[\lande{1}]\\
-\pline[5.]{\lnot B \lor C}[\lande{1}]\\
-\subproof{\pline[6.]{A}}
+\pline[4.]{B\lor \lnot C}[\lande{1}]\\
+\pline[5.]{C\lor A}[\lande{1}]\\
+\subproof{\pline[6.]{\lnot A}}
 {
-\pline[7.]{\lfalse}[\lfalsei{6}{3}]\\
-\pline[8.]{B}[\lfalsee{7}]
+\pline[7.]{\lnot A}[\reit{6}]
 }
-\subproof{\pline[9.]{B}}
+\subproof{\pline[8.]{B}}
 {
-\pline[10.]{B}[\reit{9}]
+\pline[9.]{\lfalse }[\lfalsei{8}{3}]\\
+\pline[10.]{\lnot A}[\lfalsee{9}]
 }
-\pline[11.]{B}[\lore{6--8}{9--10}{4}]\\
-\subproof{\pline[12.]{\lnot B}}
+\pline[11.]{\lnot A}[\lore{6--7}{8--10}{2}]\\
+\subproof{\pline[12.]{B}}
 {
-\pline[13.]{\lfalse}[\lfalsei{12}{8}]\\
-\pline[14.]{C}[\lfalsee{13}]
+\pline[13.]{\lfalse }[\lfalsei{12}{3}]\\
+\pline[14.]{\lnot C}[\lfalsee{13}]
 }
-\subproof{\pline[15.]{C}}
+\subproof{\pline[15.]{\lnot C}}
 {
-\pline[16.]{\lfalse}[\lfalsei{15}{2}]\\
-\pline[17.]{\lnot B}[\lfalsee{16}]
+\pline[16.]{\lnot C}[\reit{15}]
 }
-\pline[18.]{\lfalse}[\lore{12--14}{15--17}{5}]
+\pline[17.]{\lnot C}[\lore{12--14}{15--16}{4}]\\
+\subproof{\pline[18.]{C}}
+{
+\pline[19.]{\lfalse }[\lfalsei{18}{14}]\\
+\pline[20.]{A}[\lfalsee{19}]
 }
-\pline[19.]{\lnot \lnot A}[\lnoti{3--18}]\\
-\pline[20.]{A}[\lnote{19}]}
+\subproof{\pline[21.]{A}}
+{
+\pline[22.]{\lfalse }[\lfalsei{21}{6}]\\
+\pline[23.]{C}[\lfalsee{22}]
+}
+\pline[24.]{\lfalse }[\lore{18--20}{21--23}{5}]
+}
+\pline[25.]{\lnot \lnot B}[\lnoti{3--24}]\\
+\pline[26.]{B}[\lnote{25}]}
 \end{document}
