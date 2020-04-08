@@ -12,16 +12,12 @@
     
     <proof id="0">
         <assumption linenum="0">
-            <sen>(P \/ Q)</sen>
-            <!-- Note: sen is depcrated in favor of raw. See Specifications -->
-            <raw>P v Q #This line means P or Q</raw>
+            <raw>(A∨B)∧(¬B∨C)</raw>
         </assumption>
         <assumption linenum="1">
-            <raw>R</raw>
+            <raw>¬C</raw>
         </assumption>
         <goal>
-            <sen>R</sen>
-            <!-- Note: sen is depcrated in favor of raw. See Specifications -->
-            <raw>R #Here just for example</raw>
+            <raw>A</raw>
         </goal>
 </bram>

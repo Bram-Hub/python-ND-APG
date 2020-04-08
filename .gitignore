@@ -1,5 +1,1 @@
-*.aux
-*.dvi
-*.log
-*.gz
-*.tex
+output.*
