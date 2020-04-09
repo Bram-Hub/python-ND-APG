@@ -203,40 +203,32 @@ class Proof:
 			rwrite("</assumption>")
 			num += 1
 
-		# prev_level = 0
 		i = num
 		while i < len(self.knowledge_base):
-		# for i in range(num,len(self.knowledge_base)):
 			# print(i, self.knowledge_base[i].line_num - 1)
 			line = self.knowledge_base[i].string
 			if self.knowledge_base[i].subproof > prev_level: # start of subproof
-				# f.write("\n\subproof{\pline["+str(self.knowledge_base[i].line_num)+".]{"+self.line_to_tex(line)+"}}\n{")
-				# prev_level += 1
 				rwrite('<step linenum="{}">'.format(i))
+				n += 1
 				rwrite("<rule>SUBPROOF</rule>")
-				rwrite("<premise>{}</premise>".format(i))
+				rwrite("<premise>{}</premise>".format(self.nextPid))
+				n -= 1
+				rwrite("</step>")
 				subproof, i = self.proof_to_bram(i, orign, self.nextPid, prev_level + 1)
 				proofs.extend(subproof)
 			elif self.knowledge_base[i].subproof < prev_level: # end of subproof
-				# f.write("\n}\n")
-				# f.write("\pline["+str(self.knowledge_base[i].line_num)+".]{"+self.line_to_tex(line)+"}["+self.knowledge_base[i].rule+self.knowledge_base[i].follows_from+"]")
-				# prev_level -= 1
 				break
 			elif self.knowledge_base[i].rule == "NULL": # start of subproof immediately after end of subproof
-				# f.write("\n}\n")
-				# f.write("\subproof{\pline["+str(self.knowledge_base[i].line_num)+".]{"+self.line_to_tex(line)+"}}\n{")
-				rwrite('<step linenum="{}">'.format(i))
-				rwrite("<rule>SUBPROOF</rule>")
-				rwrite("<premise>{}</premise>".format(i))
-				subproof, i = self.proof_to_bram(i, orign, self.nextPid, prev_level) # prev level is already the same level as subproof
-				proofs.extend(subproof)
+				break
 			else:
 				rwrite('<step linenum="{}">'.format(i))
 				n += 1
 				rwrite("<raw>{}</raw>".format(self.line_to_bram(line)))
-				rwrite("<rule>{}</rule>".format(self.knowledge_base[i].rule)) # FIX
-				rwrite("<premise>{}</premise>".format(self.knowledge_base[i].follows_from)) # FIX
+				# rwrite("<rule>{}</rule>".format(self.knowledge_base[i].rule)) # FIX
+				rwrite("<rule/>") # FIX
+				# rwrite("<premise>{}</premise>".format(self.knowledge_base[i].follows_from)) # FIX
 				n -= 1
+				rwrite("</step>")
 
 				i += 1
 
@@ -259,8 +251,9 @@ class Proof:
 		swrite('<?xml version="1.0" encoding="UTF-8" standalone="no"?>')
 		swrite("<bram>")
 		n += 1
-		swrite("<Program>python-ND-APG</Program>")
-		swrite("<Version>1.0</Version>")
+		# swrite("<program>python-ND-APG</program>")
+		swrite("<program>Aris</program>")
+		swrite("<version>1.0</version>")
 		swrite("<metadata>")
 		n += 1
 		swrite("<author>UNKNOWN</author>")
