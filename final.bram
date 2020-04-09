@@ -4,7 +4,7 @@
   <version>0.0.187</version>
   <metadata>
     <author>UNKNOWN</author>
-    <hash>XJHc+0MkmfFTwzR6EJAlvv9ELW3fIs8uf1cDoJI812s=</hash>
+    <hash>9HOGZuIlet6kQrkqKEJZ+v1Q8NyU6ExI27cWT6Zb7gw=</hash>
   </metadata>
   <proof id="0">
     <assumption linenum="0">
@@ -22,16 +22,18 @@
     <step linenum="18">
       <sen>¬¬A</sen>
       <raw>¬¬A</raw>
-      <rule/>
+      <rule>PROOF_BY_CONTRADICTION</rule>
+      <premise>2</premise>
     </step>
     <step linenum="19">
       <sen>A</sen>
       <raw>A</raw>
-      <rule/>
+      <rule>DOUBLENEGATION</rule>
+      <premise>18</premise>
     </step>
     <goal>
-      <sen/>
-      <raw/>
+      <sen>A</sen>
+      <raw>A</raw>
     </goal>
   </proof>
   <proof id="1">
@@ -42,12 +44,14 @@
     <step linenum="3">
       <sen>(A ∨ B)</sen>
       <raw>A∨B</raw>
-      <rule/>
+      <rule>SIMPLIFICATION</rule>
+      <premise>0</premise>
     </step>
     <step linenum="4">
       <sen>(¬B ∨ C)</sen>
       <raw>¬B∨C</raw>
-      <rule/>
+      <rule>SIMPLIFICATION</rule>
+      <premise>0</premise>
     </step>
     <step linenum="5">
       <rule>SUBPROOF</rule>
@@ -60,7 +64,10 @@
     <step linenum="10">
       <sen>B</sen>
       <raw>B</raw>
-      <rule/>
+      <rule>DISJUNCTIVE_SYLLOGISM</rule>
+      <premise>3</premise>
+      <premise>5</premise>
+      <premise>8</premise>
     </step>
     <step linenum="11">
       <rule>SUBPROOF</rule>
@@ -73,7 +80,10 @@
     <step linenum="17">
       <sen>⊥</sen>
       <raw>⊥</raw>
-      <rule/>
+      <rule>DISJUNCTIVE_SYLLOGISM</rule>
+      <premise>11</premise>
+      <premise>4</premise>
+      <premise>14</premise>
     </step>
   </proof>
   <proof id="2">
@@ -84,12 +94,15 @@
     <step linenum="6">
       <sen>⊥</sen>
       <raw>⊥</raw>
-      <rule/>
+      <rule>CONTRADICTION</rule>
+      <premise>5</premise>
+      <premise>2</premise>
     </step>
     <step linenum="7">
       <sen>B</sen>
       <raw>B</raw>
-      <rule/>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>6</premise>
     </step>
   </proof>
   <proof id="3">
@@ -100,7 +113,8 @@
     <step linenum="9">
       <sen>B</sen>
       <raw>B</raw>
-      <rule/>
+      <rule>REITERATION</rule>
+      <premise>8</premise>
     </step>
   </proof>
   <proof id="4">
@@ -111,12 +125,15 @@
     <step linenum="12">
       <sen>⊥</sen>
       <raw>⊥</raw>
-      <rule/>
+      <rule>CONTRADICTION</rule>
+      <premise>11</premise>
+      <premise>10</premise>
     </step>
     <step linenum="13">
       <sen>C</sen>
       <raw>C</raw>
-      <rule/>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>12</premise>
     </step>
   </proof>
   <proof id="5">
@@ -127,12 +144,15 @@
     <step linenum="15">
       <sen>⊥</sen>
       <raw>⊥</raw>
-      <rule/>
+      <rule>CONTRADICTION</rule>
+      <premise>14</premise>
+      <premise>1</premise>
     </step>
     <step linenum="16">
       <sen>¬B</sen>
       <raw>¬B</raw>
-      <rule/>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>15</premise>
     </step>
   </proof>
 </bram>
