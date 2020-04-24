@@ -244,7 +244,6 @@ class Proof:
 
 		i = num
 		while i < len(self.knowledge_base):
-			# print(i, self.knowledge_base[i].line_num - 1)
 			line = self.knowledge_base[i].string
 			if self.knowledge_base[i].subproof > prev_level: # start of subproof
 				rwrite('<step linenum="{}">'.format(i))
@@ -384,7 +383,10 @@ if __name__ == "__main__":
 	if not proof.gen_conclusion():
 		print("ERROR: Could not resolve given premises and conclusion")
 		sys.exit()
-	# proof.to_tex_file()
-	proof.to_bram_file()
+
+	if len(sys.argv) == 3 and sys.argv[2] == "latex":
+		proof.to_tex_file()
+	else:
+		proof.to_bram_file()
 	
 	
