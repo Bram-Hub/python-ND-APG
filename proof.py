@@ -225,9 +225,10 @@ class Proof:
 				rwrite("</assumption>")
 				num += 1
 			# goal
+			outstring = self.line_to_bram(self.conclusion)	
 			rwrite("<goal>")
 			n += 1
-			rwrite("<raw>{}</raw>".format(self.conclusion))
+			rwrite("<raw>{}</raw>".format(outstring))
 			n -= 1
 			rwrite("</goal>")
 
