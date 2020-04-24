@@ -224,14 +224,6 @@ class Proof:
 				n -= 1
 				rwrite("</assumption>")
 				num += 1
-			# goal
-			outstring = self.line_to_bram(self.conclusion)	
-			rwrite("<goal>")
-			n += 1
-			rwrite("<raw>{}</raw>".format(outstring))
-			n -= 1
-			rwrite("</goal>")
-
 
 		else: # only one premise in subproof
 			line = self.knowledge_base[num]
@@ -271,6 +263,15 @@ class Proof:
 				rwrite("</step>")
 
 				i += 1
+
+		# goal
+		if pid == 0:
+			outstring = self.line_to_bram(self.conclusion)	
+			rwrite("<goal>")
+			n += 1
+			rwrite("<raw>{}</raw>".format(outstring))
+			n -= 1
+			rwrite("</goal>")
 
 		n -= 1
 		rwrite("</proof>")
