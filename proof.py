@@ -27,7 +27,7 @@ class Proof:
 	
 	def __init__(self, filename):
 		global line_counter
-		file = open(filename)
+		file = open(filename, encoding="utf-8")
 		for line in file:
 			line = line.strip()
 			if (line[0:5] == "<raw>"):
