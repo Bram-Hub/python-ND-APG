@@ -374,7 +374,7 @@ if __name__ == "__main__":
 	if not proof.gen_conclusion():
 		print("ERROR: Could not resolve given premises and conclusion")
 		sys.exit()
-	proof.to_tex_file()
+	# proof.to_tex_file()
 	proof.to_bram_file()
 	
 	
