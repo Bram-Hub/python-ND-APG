@@ -28,22 +28,32 @@ class Proof:
 	def __init__(self, filename):
 		global line_counter
 		file = open(filename, encoding="utf-8")
+		filetype = -1
+		if (filename[-4:] == ".txt"):
+			filetype = 0
+		elif (filename[-5:] == ".bram"):
+			filetype = 1
+		else:
+			print("ERROR: Unrecognized file type")
+			sys.exit()
 		for line in file:
 			line = line.strip()
-			if (line[0:5] == "<raw>"):
-				# Take off tags
-				line = line[5:-6]
-				# Take out comments
-				if ('#' in line):
-					line = line[0:line.find('#')]
-				# Convert symbols
-				line = line.replace('∧', '&')	# And
-				line = line.replace('∨', '|')	# Or
-				line = line.replace('¬', '~')	# Not
+			if (filetype):
+				if (line[0:5] == "<raw>"):
+					# Take off tags
+					line = line[5:-6]
+					# Take out comments
+					if ('#' in line):
+						line = line[0:line.find('#')]
+					# Convert symbols
+					line = line.replace('∧', '&')	# And
+					line = line.replace('∨', '|')	# Or
+					line = line.replace('¬', '~')	# Not
+					statement = Statement(line, "NULL", "NULL", 0)
+					self.knowledge_base.append(statement)
+			else:
 				statement = Statement(line, "NULL", "NULL", 0)
 				self.knowledge_base.append(statement)
-			# statement = Statement(line, "NULL", "NULL", 0)
-			# self.knowledge_base.append(statement)
 		self.conclusion = self.knowledge_base[-1].string
 		self.knowledge_base.pop(-1)
 		self.nextPid = 0 #for .bram conversion
