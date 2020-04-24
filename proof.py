@@ -61,7 +61,7 @@ class Proof:
 
 
 	def search_kb(self, base, look_for):
-		for item in base:
+		for item in base[::-1]:
 			if item.string == look_for:
 				return item.line_num
 		return False
@@ -159,6 +159,15 @@ class Proof:
 				return True
 		return False
 
+	def rule_to_bram(self, rule):
+		rules = {"\\lnote": "DOUBLENEGATION", "\\lande": "SIMPLIFICATION", "\\lfalsei": "CONTRADICTION", "\\lfalsee": "PRINCIPLE_OF_EXPLOSION", "\\reit": "REITERATION", "\\lore": "DISJUNCTIVE_SYLLOGISM", "\\lnoti": "PROOF_BY_CONTRADICTION"}
+		return rules[rule]
+
+	def follows_to_bram(self, follows):
+		follows = [f.strip("}") for f in follows.split("{") if f != ""]
+		follows = [int(f.split("-")[0]) - 1 for f in follows]
+		return sorted(follows)
+
 	def line_to_bram(self, line):
 		line = line.replace("|","∨")
 		line = line.replace("&","∧")
@@ -174,8 +183,8 @@ class Proof:
 		r = [] # current proof
 		proofs = [r]
 		def rwrite(s):
-			nonlocal r
-			nonlocal n
+			#nonlocal r
+			#nonlocal n
 			r.append("{}{}\n".format(n * 2 * ' ', s))
 
 		rwrite('<proof id="{}">'.format(pid))
@@ -193,6 +202,14 @@ class Proof:
 				n -= 1
 				rwrite("</assumption>")
 				num += 1
+			# goal
+			rwrite("<goal>")
+			n += 1
+			rwrite("<raw>{}</raw>".format(self.conclusion))
+			n -= 1
+			rwrite("</goal>")
+
+
 		else: # only one premise in subproof
 			line = self.knowledge_base[num]
 			rwrite('<assumption linenum="{}">'.format(num))
@@ -224,9 +241,10 @@ class Proof:
 				rwrite('<step linenum="{}">'.format(i))
 				n += 1
 				rwrite("<raw>{}</raw>".format(self.line_to_bram(line)))
-				# rwrite("<rule>{}</rule>".format(self.knowledge_base[i].rule)) # FIX
-				rwrite("<rule/>") # FIX
-				# rwrite("<premise>{}</premise>".format(self.knowledge_base[i].follows_from)) # FIX
+				rwrite("<rule>{}</rule>".format(self.rule_to_bram(self.knowledge_base[i].rule))) # FIX
+				# rwrite("<rule/>") # FIX
+				for p in self.follows_to_bram(self.knowledge_base[i].follows_from):
+					rwrite("<premise>{}</premise>".format(p)) # FIX
 				n -= 1
 				rwrite("</step>")
 
@@ -244,8 +262,8 @@ class Proof:
 		n = 0
 		f = open("output.bram","w", encoding="utf-8")
 		def swrite(s):
-			nonlocal n
-			nonlocal f
+			#nonlocal n
+			#nonlocal f
 			f.write("{}{}\n".format(n * 2 * ' ', s))
 		
 		swrite('<?xml version="1.0" encoding="UTF-8" standalone="no"?>')
@@ -344,7 +362,7 @@ if __name__ == "__main__":
 	if not proof.gen_conclusion():
 		print("ERROR: Could not resolve given premises and conclusion")
 		sys.exit()
-	# proof.to_tex_file()
+	proof.to_tex_file()
 	proof.to_bram_file()
 	
 	
