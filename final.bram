@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bram>
+  <program>Aris</program>
+  <version>0.0.187</version>
+  <metadata>
+    <author>UNKNOWN</author>
+    <hash>9HOGZuIlet6kQrkqKEJZ+v1Q8NyU6ExI27cWT6Zb7gw=</hash>
+  </metadata>
+  <proof id="0">
+    <assumption linenum="0">
+      <sen>((A ∨ B) ∧ (¬B ∨ C))</sen>
+      <raw>(A∨B)∧(¬B∨C)</raw>
+    </assumption>
+    <assumption linenum="1">
+      <sen>¬C</sen>
+      <raw>¬C</raw>
+    </assumption>
+    <step linenum="2">
+      <rule>SUBPROOF</rule>
+      <premise>1</premise>
+    </step>
+    <step linenum="18">
+      <sen>¬¬A</sen>
+      <raw>¬¬A</raw>
+      <rule>PROOF_BY_CONTRADICTION</rule>
+      <premise>2</premise>
+    </step>
+    <step linenum="19">
+      <sen>A</sen>
+      <raw>A</raw>
+      <rule>DOUBLENEGATION</rule>
+      <premise>18</premise>
+    </step>
+    <goal>
+      <sen>A</sen>
+      <raw>A</raw>
+    </goal>
+  </proof>
+  <proof id="1">
+    <assumption linenum="2">
+      <sen>¬A</sen>
+      <raw>¬A</raw>
+    </assumption>
+    <step linenum="3">
+      <sen>(A ∨ B)</sen>
+      <raw>A∨B</raw>
+      <rule>SIMPLIFICATION</rule>
+      <premise>0</premise>
+    </step>
+    <step linenum="4">
+      <sen>(¬B ∨ C)</sen>
+      <raw>¬B∨C</raw>
+      <rule>SIMPLIFICATION</rule>
+      <premise>0</premise>
+    </step>
+    <step linenum="5">
+      <rule>SUBPROOF</rule>
+      <premise>2</premise>
+    </step>
+    <step linenum="8">
+      <rule>SUBPROOF</rule>
+      <premise>3</premise>
+    </step>
+    <step linenum="10">
+      <sen>B</sen>
+      <raw>B</raw>
+      <rule>DISJUNCTIVE_SYLLOGISM</rule>
+      <premise>3</premise>
+      <premise>5</premise>
+      <premise>8</premise>
+    </step>
+    <step linenum="11">
+      <rule>SUBPROOF</rule>
+      <premise>4</premise>
+    </step>
+    <step linenum="14">
+      <rule>SUBPROOF</rule>
+      <premise>5</premise>
+    </step>
+    <step linenum="17">
+      <sen>⊥</sen>
+      <raw>⊥</raw>
+      <rule>DISJUNCTIVE_SYLLOGISM</rule>
+      <premise>11</premise>
+      <premise>4</premise>
+      <premise>14</premise>
+    </step>
+  </proof>
+  <proof id="2">
+    <assumption linenum="5">
+      <sen>A</sen>
+      <raw>A</raw>
+    </assumption>
+    <step linenum="6">
+      <sen>⊥</sen>
+      <raw>⊥</raw>
+      <rule>CONTRADICTION</rule>
+      <premise>5</premise>
+      <premise>2</premise>
+    </step>
+    <step linenum="7">
+      <sen>B</sen>
+      <raw>B</raw>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>6</premise>
+    </step>
+  </proof>
+  <proof id="3">
+    <assumption linenum="8">
+      <sen>B</sen>
+      <raw>B</raw>
+    </assumption>
+    <step linenum="9">
+      <sen>B</sen>
+      <raw>B</raw>
+      <rule>REITERATION</rule>
+      <premise>8</premise>
+    </step>
+  </proof>
+  <proof id="4">
+    <assumption linenum="11">
+      <sen>¬B</sen>
+      <raw>¬B</raw>
+    </assumption>
+    <step linenum="12">
+      <sen>⊥</sen>
+      <raw>⊥</raw>
+      <rule>CONTRADICTION</rule>
+      <premise>11</premise>
+      <premise>10</premise>
+    </step>
+    <step linenum="13">
+      <sen>C</sen>
+      <raw>C</raw>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>12</premise>
+    </step>
+  </proof>
+  <proof id="5">
+    <assumption linenum="14">
+      <sen>C</sen>
+      <raw>C</raw>
+    </assumption>
+    <step linenum="15">
+      <sen>⊥</sen>
+      <raw>⊥</raw>
+      <rule>CONTRADICTION</rule>
+      <premise>14</premise>
+      <premise>1</premise>
+    </step>
+    <step linenum="16">
+      <sen>¬B</sen>
+      <raw>¬B</raw>
+      <rule>PRINCIPLE_OF_EXPLOSION</rule>
+      <premise>15</premise>
+    </step>
+  </proof>
+</bram>

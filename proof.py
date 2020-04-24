@@ -46,6 +46,7 @@ class Proof:
 			# self.knowledge_base.append(statement)
 		self.conclusion = self.knowledge_base[-1].string
 		self.knowledge_base.pop(-1)
+		self.nextPid = 0 #for .bram conversion
 		line_counter -= 1
 
 	def initial_expand(self):
@@ -72,7 +73,7 @@ class Proof:
 
 
 	def search_kb(self, base, look_for):
-		for item in base:
+		for item in base[::-1]:
 			if item.string == look_for:
 				return item.line_num
 		return False
@@ -170,6 +171,132 @@ class Proof:
 				return True
 		return False
 
+	def rule_to_bram(self, rule):
+		rules = {"\\lnote": "DOUBLENEGATION", "\\lande": "SIMPLIFICATION", "\\lfalsei": "CONTRADICTION", "\\lfalsee": "PRINCIPLE_OF_EXPLOSION", "\\reit": "REITERATION", "\\lore": "DISJUNCTIVE_SYLLOGISM", "\\lnoti": "PROOF_BY_CONTRADICTION"}
+		return rules[rule]
+
+	def follows_to_bram(self, follows):
+		follows = [f.strip("}") for f in follows.split("{") if f != ""]
+		follows = [int(f.split("-")[0]) - 1 for f in follows]
+		return sorted(follows)
+
+	def line_to_bram(self, line):
+		line = line.replace("|","∨")
+		line = line.replace("&","∧")
+		line = line.replace("~","¬")
+		line = line.replace("!","⊥")
+		line = line.split() # may be able to get rid of
+		line = "".join(line)
+		return line
+
+	def proof_to_bram(self, num, n, pid, prev_level):
+		self.nextPid += 1
+		orign = n # if subroofs exist, pass this in
+		r = [] # current proof
+		proofs = [r]
+		def rwrite(s):
+			#nonlocal r
+			#nonlocal n
+			r.append("{}{}\n".format(n * 2 * ' ', s))
+
+		rwrite('<proof id="{}">'.format(pid))
+		n += 1
+
+		# write premises
+		if pid == 0: #multiple premises can exist on outer level
+			for line in self.knowledge_base:
+				if line.subproof > 0: # CAN CHANGE WAY PREMISES ARE DETECTED IN FUTURE
+					break
+				rwrite('<assumption linenum="{}">'.format(num))
+				n += 1
+				outstring = self.line_to_bram(line.string)
+				rwrite("<raw>{}</raw>".format(outstring))
+				n -= 1
+				rwrite("</assumption>")
+				num += 1
+			# goal
+			rwrite("<goal>")
+			n += 1
+			rwrite("<raw>{}</raw>".format(self.conclusion))
+			n -= 1
+			rwrite("</goal>")
+
+
+		else: # only one premise in subproof
+			line = self.knowledge_base[num]
+			rwrite('<assumption linenum="{}">'.format(num))
+			n += 1
+			outstring = self.line_to_bram(line.string)
+			rwrite("<raw>{}</raw>".format(outstring))
+			n -= 1
+			rwrite("</assumption>")
+			num += 1
+
+		i = num
+		while i < len(self.knowledge_base):
+			# print(i, self.knowledge_base[i].line_num - 1)
+			line = self.knowledge_base[i].string
+			if self.knowledge_base[i].subproof > prev_level: # start of subproof
+				rwrite('<step linenum="{}">'.format(i))
+				n += 1
+				rwrite("<rule>SUBPROOF</rule>")
+				rwrite("<premise>{}</premise>".format(self.nextPid))
+				n -= 1
+				rwrite("</step>")
+				subproof, i = self.proof_to_bram(i, orign, self.nextPid, prev_level + 1)
+				proofs.extend(subproof)
+			elif self.knowledge_base[i].subproof < prev_level: # end of subproof
+				break
+			elif self.knowledge_base[i].rule == "NULL": # start of subproof immediately after end of subproof
+				break
+			else:
+				rwrite('<step linenum="{}">'.format(i))
+				n += 1
+				rwrite("<raw>{}</raw>".format(self.line_to_bram(line)))
+				rwrite("<rule>{}</rule>".format(self.rule_to_bram(self.knowledge_base[i].rule))) # FIX
+				# rwrite("<rule/>") # FIX
+				for p in self.follows_to_bram(self.knowledge_base[i].follows_from):
+					rwrite("<premise>{}</premise>".format(p)) # FIX
+				n -= 1
+				rwrite("</step>")
+
+				i += 1
+
+		n -= 1
+		rwrite("</proof>")
+
+		proofs[0] = "".join(proofs[0]) # convert to string
+		return proofs, i
+
+	def to_bram_file(self):
+		num = 0
+
+		n = 0
+		f = open("output.bram","w", encoding="utf-8")
+		def swrite(s):
+			#nonlocal n
+			#nonlocal f
+			f.write("{}{}\n".format(n * 2 * ' ', s))
+		
+		swrite('<?xml version="1.0" encoding="UTF-8" standalone="no"?>')
+		swrite("<bram>")
+		n += 1
+		# swrite("<program>python-ND-APG</program>")
+		swrite("<program>Aris</program>")
+		swrite("<version>1.0</version>")
+		swrite("<metadata>")
+		n += 1
+		swrite("<author>UNKNOWN</author>")
+		n -= 1
+		swrite("</metadata>")
+		proofs = self.proof_to_bram(num, n, 0, 0)[0]
+		for proof in proofs:
+			f.write(proof)
+
+		n -= 1
+		swrite("</bram>")
+
+	
 	def line_to_tex(self, line):
 		line = line.replace("|","\lor ")
 		line = line.replace("&","\land ")
@@ -248,5 +375,6 @@ if __name__ == "__main__":
 		print("ERROR: Could not resolve given premises and conclusion")
 		sys.exit()
 	proof.to_tex_file()
+	proof.to_bram_file()
 	
 	
