@@ -2,10 +2,13 @@
 ## Authors
 2015:
 Mike Mathis
+2020:
+Salil Chandra
+Matthew Salemi
 
 ## About
-This is a python program to take in input via a .txt file and output a .tex file.
-The format of the input file must be as follows:
+This is a python program to take in input via a .txt file or .bram file and output a .tex file or .bram file.
+The format of the input .txt file must be as follows:
 	and - &
 	or  - |
 	not - ~
@@ -16,10 +19,11 @@ The input must be in CNF in order for the program to work.
 Due to limitations of the algorithm I used to generate the proof, 
 only simple conclusions can be solved for, such as A or ~A
 
-The program is run using python 3 with the input as the first argument
+The program is run using python 3 with the input (.txt/.bram) as the first argument and an optional second argument "latex" to output to .tex rather than the default (.bram)
 Ex: python proof.py input.txt
+	python proof.py input.bram latex
 
-The program will output output.tex into the current directory
+The program will output output.bram (output.tex) into the current directory
 The tex file can then be converted to a .dvi or .pdf using a latex style provided by 
 https://github.com/rzach/lplfitch
 
