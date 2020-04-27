@@ -201,7 +201,7 @@ class Proof:
 
 	def proof_to_bram(self, num, n, pid, prev_level):
 		self.nextPid += 1
-		orign = n # if subroofs exist, pass this in
+		orign = n # if subproofs exist, pass this in
 		r = [] # current proof
 		proofs = [r]
 		def rwrite(s):
@@ -215,7 +215,7 @@ class Proof:
 		# write premises
 		if pid == 0: #multiple premises can exist on outer level
 			for line in self.knowledge_base:
-				if line.subproof > 0: # CAN CHANGE WAY PREMISES ARE DETECTED IN FUTURE
+				if line.subproof > 0: # no more premises
 					break
 				rwrite('<assumption linenum="{}">'.format(num))
 				n += 1
@@ -255,10 +255,9 @@ class Proof:
 				rwrite('<step linenum="{}">'.format(i))
 				n += 1
 				rwrite("<raw>{}</raw>".format(self.line_to_bram(line)))
-				rwrite("<rule>{}</rule>".format(self.rule_to_bram(self.knowledge_base[i].rule))) # FIX
-				# rwrite("<rule/>") # FIX
+				rwrite("<rule>{}</rule>".format(self.rule_to_bram(self.knowledge_base[i].rule)))
 				for p in self.follows_to_bram(self.knowledge_base[i].follows_from):
-					rwrite("<premise>{}</premise>".format(p)) # FIX
+					rwrite("<premise>{}</premise>".format(p))
 				n -= 1
 				rwrite("</step>")
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bram>
+  <program>Aris</program>
+  <version>0.0.187</version>
+  <metadata>
+    <author>UNKNOWN</author>
+    <hash>+z3QUuAZUuFhEQXbTKvuCIqC/HYIEtPW8AdwAqeqV5w=</hash>
+  </metadata>
+  <proof id="0">
+    <assumption linenum="0">
+      <sen>((B ∨ ¬C) ∧ (C ∨ A))</sen>
+      <raw>(B ∨ ¬C) ∧ (C ∨ A)</raw>
+    </assumption>
+    <assumption linenum="1">
+      <sen>(¬A ∨ B)</sen>
+      <raw>(¬A ∨ B)</raw>
+    </assumption>
+    <goal>
+      <sen>B</sen>
+      <raw>B</raw>
+    </goal>
+  </proof>
+</bram>
