@@ -292,7 +292,7 @@ class Proof:
 		swrite("<bram>")
 		n += 1
 		# swrite("<program>python-ND-APG</program>")
-		swrite("<program>Aris</program>")
+		swrite("<program>Aris</program>") # program name must be Aris for Aris to be able to open output.bram
 		swrite("<version>1.0</version>")
 		swrite("<metadata>")
 		n += 1

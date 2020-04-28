@@ -18,11 +18,11 @@ The program will accept as input valid .txt or .bram files. It will automaticall
 
 ### .txt input file
 
-.txt files must have each premise separated with a new line with parenthesis being optoinal. Logic operators must be in the form &, |, ~ for and, or, not respectively. The last line in the .txt file will be treated as the goal.
+.txt files must have each premise separated with a new line with parenthesis being optional. Logic operators must be in the form &, |, ~ for and, or, not respectively. The last line in the .txt file will be treated as the goal.
 
 ### .bram input file
 
-.bram input files must be valid and conform to standards found at https://github.com/Bram-Hub/Bram-File-Format. The file must specify a goal or the last premise will be treated as the goal.
+.bram input files must be valid and conform to standards found at https://github.com/Bram-Hub/Bram-File-Format. The file must specify a goal (max 1) or the last premise will be treated as the goal.
 
 ## Output
 
