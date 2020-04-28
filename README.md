@@ -29,7 +29,7 @@ The program will accept as input valid .txt or .bram files. It will automaticall
 ## Output
 
 The program will output to a .bram file by default or a .tex file if specified. In order to output to a .tex file add the latex flag when running the program.  
-Ex: ```python proof.py input.bram latex```
+Ex: ```python proof.py input.bram latex```  
 Additionally, compiling the .tex file requires use of the lplfitch package found in this repository or at https://github.com/rzach/lplfitch. Ensure that the .tex file is in the same directory as lplfitch.sty.
 
 ## Proof Algorithm
