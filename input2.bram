@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bram>
+  <program>Aris</program>
+  <version>0.0.187</version>
+  <metadata>
+    <author>UNKNOWN</author>
+    <hash>lLEDbXMKWJflaWeQP+t5ws/TXtXJwtExYTtK7jnPg+o=</hash>
+  </metadata>
+  <proof id="0">
+    <assumption linenum="0">
+      <sen>(¬A ∨ ¬B ∨ C)</sen>
+      <raw>¬A ∨ ¬B ∨ C</raw>
+    </assumption>
+    <assumption linenum="1">
+      <sen>(¬A ∨ B)</sen>
+      <raw>¬A ∨ B</raw>
+    </assumption>
+    <assumption linenum="2">
+      <sen>¬C</sen>
+      <raw>¬C</raw>
+    </assumption>
+    <goal>
+      <sen>¬A</sen>
+      <raw>¬A</raw>
+    </goal>
+  </proof>
+</bram>
