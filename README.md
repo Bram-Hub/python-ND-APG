@@ -9,7 +9,7 @@ Salil Chandra, Matthew Salemi
 This is a python 3 program which takes as input a set of premises and a goal. If the goal can be reached from the premises, a valid proof will be outputted. Otherwise, the program will respond with an error message. The program takes in a .txt or .bram file and outputs a .tex or .bram file. Below are some example command line inputs.  
 python proof.py input.txt  
 python proof.py input.txt latex  
-python proof.py input.bram
+python proof.py input.bram  
 python proof.py input.bram latex
 
 ## Input
@@ -34,10 +34,10 @@ Additionally, compiling the .tex file requires use of the lplfitch package found
 
 Due to limitations of the algorithm used to generate the proof, only simple conclusions can be solved for such as A or ~A.  
 
-The algorithm works as follows:
-	1. Create subproof where conclusion is false
-	2. Break down all conjunctions
-	3. Break down all disjuntions into subproofs
-	4. Search all subproofs for common conclusions
-	5. When a contradiction is found, break out of the subproof and conclude contratiction
-	6. Conclude the given conclusion
+The algorithm works as follows:  
+   1. Create subproof where conclusion is false
+   2. Break down all conjunctions
+   3. Break down all disjuntions into subproofs
+   4. Search all subproofs for common conclusions
+   5. When a contradiction is found, break out of the subproof and conclude contratiction
+   6. Conclude the given conclusion
